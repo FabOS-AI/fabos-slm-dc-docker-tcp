@@ -15,6 +15,10 @@
   register: get_container_output
   changed_when: false
 
+- name: Install required pip packages
+  ansible.builtin.pip:
+    name: websocket
+
 - name: "Get Container Facts by list of container IDs"
   include_tasks: "helper/get_container_facts_by_id_list.yml"
   loop: "{{ get_container_output.stdout_lines }}"
