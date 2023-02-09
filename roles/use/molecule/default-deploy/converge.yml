@@ -33,6 +33,7 @@
         ansible_python_interpreter: "/tmp/docker-venv/bin/python"
         ansible_ssh_common_args:    '-o StrictHostKeyChecking\=no'
       loop: "{{ hostvars | dict2items }}"
+      changed_when: false
 
 - name: Converge
   hosts: tcp
