@@ -42,10 +42,10 @@
       when: "(docker_registries is defined) and (docker_registries|length > 0)"
       no_log: true
 
-    - name: "Include use - deploy_tcp"
+    - name: "Include use - deploy"
       ansible.builtin.include_role:
         name: "use"
-        tasks_from: deploy_tcp.yml
+        tasks_from: deploy.yml
 
     - name: "Logout from required Docker Registries"
       docker_login:
