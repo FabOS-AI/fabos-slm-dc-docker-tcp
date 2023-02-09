@@ -3,7 +3,6 @@
   hosts: all
   gather_facts: no
   become: yes
-  serial: "{{ lookup('env', 'ANSIBLE_SERIAL') }}"
   tasks:
     - name: Include vars file
       include_vars:
