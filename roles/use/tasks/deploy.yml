@@ -12,6 +12,7 @@
     state: "present"
     project_name: "{{ service_id }}"
     definition: "{{ docker_compose_file }}"
+    docker_host: "tcp://{{ inventory_hostname }}:2375"
   register: docker_compose
   retries: 5
   delay: 5
