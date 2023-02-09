@@ -20,7 +20,7 @@
   gather_facts: no
   become: yes
   tasks:
-    - name: "Include use - undeploy_tcp"
+    - name: "Include use - undeploy"
       include_role:
         name: "use"
-        tasks_from: undeploy_tcp.yml
+        tasks_from: undeploy.yml
