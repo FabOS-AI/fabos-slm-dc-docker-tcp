@@ -1,7 +1,7 @@
 ---
 namespace: fabos
 
-name: docker
+name: docker_tcp
 
 version: 1.0.0
 
