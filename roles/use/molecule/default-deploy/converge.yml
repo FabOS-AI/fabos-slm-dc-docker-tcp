@@ -19,8 +19,9 @@
     - name: Add Item to ansible Inventory
       ansible.builtin.add_host:
         name:                       "{{ item.value.ansible_host }}"
-        groups:                     "tcp"
+        groups:                     "{{ [ 'tcp' ] + item.value.group_names }}"
         ansible_connection:         "local"
+        ansible_shell_type:         "sh"
         ansible_user:               ""
         ansible_password:           ""
         ansible_ssh_user:           ""
@@ -43,6 +44,11 @@
     - name: Include vars file
       include_vars:
         file: ./vars/main.yml
+
+    - name: Set docker_compose_file for Windows
+      when: "'win-ssh' in group_names"
+      ansible.builtin.set_fact:
+        docker_compose_file: "{{ docker_compose_file_win }}"
 
     - name: Install docker client
       ansible.builtin.include_role:
