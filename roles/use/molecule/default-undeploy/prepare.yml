@@ -38,8 +38,9 @@
     - name: Add Item to ansible Inventory
       ansible.builtin.add_host:
         name:                       "{{ item.value.ansible_host }}"
-        groups:                     "tcp"
+        groups:                     "{{ [ 'tcp' ] + item.value.group_names }}"
         ansible_connection:         "local"
+        ansible_shell_type:         "sh"
         ansible_user:               ""
         ansible_password:           ""
         ansible_ssh_user:           ""
@@ -68,7 +69,13 @@
         tasks_from: install_client.yml
       run_once: true
 
-    - name: "Include use - deploy (service-1)"
+    - name: Set docker_compose_file for Windows
+      when: "'win-' in group_names"
+      ansible.builtin.set_fact:
+        docker_compose_file: "{{ docker_compose_file_win }}"
+
+    - name: "Include use - deploy (service-1) - Linux"
+      when: "'win-' not in group_names"
       include_role:
         name: "use"
         tasks_from: deploy.yml
@@ -76,10 +83,29 @@
         service_id: "{{ service_id_1 }}"
         docker_compose_file: "{{ docker_compose_file_1 }}"
 
-    - name: "Include use - deploy (service-2)"
+    - name: "Include use - deploy (service-1) - Windows"
+      when: "'win-' in group_names"
+      include_role:
+        name: "use"
+        tasks_from: deploy.yml
+      vars:
+        service_id: "{{ service_id_1 }}"
+        docker_compose_file: "{{ docker_compose_file_1_win }}"
+
+    - name: "Include use - deploy (service-2) - Linux"
+      when: "'win-' not in group_names"
       include_role:
         name: "use"
         tasks_from: deploy.yml
       vars:
         service_id: "{{ service_id_2 }}"
         docker_compose_file: "{{ docker_compose_file_2 }}"
+
+    - name: "Include use - deploy (service-2)- Windows"
+      when: "'win-' in group_names"
+      include_role:
+        name: "use"
+        tasks_from: deploy.yml
+      vars:
+        service_id: "{{ service_id_2 }}"
+        docker_compose_file: "{{ docker_compose_file_2_win }}"
