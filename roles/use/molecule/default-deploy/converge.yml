@@ -46,7 +46,7 @@
         file: ./vars/main.yml
 
     - name: Set docker_compose_file for Windows
-      when: "'win-ssh' in group_names"
+      when: "'win-ssh' in group_names or 'winrm' in group_names"
       ansible.builtin.set_fact:
         docker_compose_file: "{{ docker_compose_file_win }}"
 
