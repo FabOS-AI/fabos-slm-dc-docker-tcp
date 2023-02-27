@@ -6,15 +6,15 @@
   gather_facts: yes
   become: yes
   tasks:
-    - name: Include vars file
-      include_vars:
-        file: ./vars/main.yml
-
     - name: Install pip packages
       ansible.builtin.pip:
         name: requests-credssp
       when: ansible_os_family == "Windows"
       delegate_to: localhost
+
+    - name: Include vars file
+      include_vars:
+        file: ./vars/main.yml
 
     - name: Run Linux verify
       when: ansible_os_family != "Windows"
