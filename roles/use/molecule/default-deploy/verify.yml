@@ -8,7 +8,6 @@
     - name: Install pip packages
       ansible.builtin.pip:
         name: requests-credssp
-      when: ansible_os_family == "Windows"
 
 - name: Verify
   hosts: all
