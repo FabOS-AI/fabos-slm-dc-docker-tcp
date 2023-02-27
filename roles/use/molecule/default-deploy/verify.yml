@@ -1,17 +1,20 @@
 ---
 # This is an example playbook to execute Ansible tests.
+- name: Prepare Control host
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: Install pip packages
+      ansible.builtin.pip:
+        name: requests-credssp
+      when: ansible_os_family == "Windows"
 
 - name: Verify
   hosts: all
   gather_facts: yes
   become: yes
   tasks:
-    - name: Install pip packages
-      ansible.builtin.pip:
-        name: requests-credssp
-      when: ansible_os_family == "Windows"
-      delegate_to: localhost
-
     - name: Include vars file
       include_vars:
         file: ./vars/main.yml
