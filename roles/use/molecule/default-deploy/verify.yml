@@ -1,13 +1,22 @@
 ---
 # This is an example playbook to execute Ansible tests.
-- name: Prepare Control host
-  hosts: localhost
-  connection: local
-  gather_facts: no
-  tasks:
-    - name: Install pip packages
-      ansible.builtin.pip:
-        name: requests-credssp
+#- name: Prepare Control host
+#  hosts: localhost
+#  connection: local
+#  gather_facts: no
+#  tasks:
+#    - name: pip freeze
+#      command: pip freeze
+#      register: pip_freeze_cmd
+#
+#    - debug:
+#        var: pip_freeze_cmd
+#
+#    - name: Install pip packages
+#      ansible.builtin.pip:
+#        name:
+#          - requests-credssp==1.3.1
+#          - pywinrm
 
 - name: Verify
   hosts: all
