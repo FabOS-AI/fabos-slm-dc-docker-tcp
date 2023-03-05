@@ -32,6 +32,9 @@
         name: "setup"
         tasks_from: install_client.yml
 
+    - set_fact:
+        docker_registries: "{{ hostvars['localhost']['docker_registries'] | default([]) }}"
+
     - name: "Login to required Docker Registries"
       docker_login:
         registry: "{{ item.address }}"
