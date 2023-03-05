@@ -38,8 +38,10 @@
         username: "{{ item.username }}"
         password: "{{ item.password }}"
         reauthorize: yes
-      with_items: "{{ docker_registries }}"
-      when: "(docker_registries is defined) and (docker_registries|length > 0)"
+      loop: "{{ docker_registries | default([]) }}"
+#      when:
+#        - docker_registries is defined
+#        - docker_registries | length > 0
       no_log: false
 
     - name: "Include use - deploy"
@@ -51,6 +53,6 @@
       docker_login:
         registry: "{{ item.address }}"
         state: absent
-      with_items: "{{ docker_registries }}"
-      when: "(docker_registries is defined) and (docker_registries|length > 0)"
+      loop: "{{ docker_registries | default([]) }}"
+#      when: "(docker_registries is defined) and (docker_registries|length > 0)"
       no_log: true
