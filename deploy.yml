@@ -36,7 +36,8 @@
         docker_registries: "{{ hostvars['localhost']['docker_registries'] | default([]) }}"
 
     - name: "Login to required Docker Registries"
-      docker_login:
+      community.docker.docker_login:
+        docker_host: "tcp://{{ inventory_hostname }}:2375"
         registry: "{{ item.address }}"
         username: "{{ item.username }}"
         password: "{{ item.password }}"
@@ -53,7 +54,8 @@
         tasks_from: deploy.yml
 
     - name: "Logout from required Docker Registries"
-      docker_login:
+      community.docker.docker_login:
+        docker_host: "tcp://{{ inventory_hostname }}:2375"
         registry: "{{ item.address }}"
         state: absent
       loop: "{{ docker_registries | default([]) }}"
