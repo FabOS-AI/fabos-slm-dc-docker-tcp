@@ -46,7 +46,7 @@
 #      when:
 #        - docker_registries is defined
 #        - docker_registries | length > 0
-      no_log: false
+      no_log: true
 
     - name: "Include use - deploy"
       ansible.builtin.include_role:
