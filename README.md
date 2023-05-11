@@ -1,5 +1,1 @@
-# Ansible Collection - fabos.docker_tcp
-
-The collection provides playbooks for installing and uninstalling of docker with exposed tcp port on a target host (see "setup" role) and 
-deploying and undeploying of container based on docker-compose files (see "use" role). The additional "inventory_helper"
-role helps to create an inventory in the context of the FabOS Service Lifecycle Management (SLM). 
+The Service Lifecycle Management was transferred to the [Eclipse Service Lifecycle Management](https://projects.eclipse.org/projects/dt.slm) project at the Eclipse Foundation. Therefore, this repository was transferred to the new repository [eclipse-slm/slm-dc-docker-tcp](https://github.com/eclipse-slm/slm-dc-docker-tcp) and set to archived.
